@@ -7,7 +7,7 @@ Content-Type: application/json
     "password" : "aezakmi"
 }
 
-
+###
 POST http://localhost:9001/user/login
 Content-Type: application/json
 
@@ -16,6 +16,14 @@ Content-Type: application/json
     "password" : "aezakmi"
 }
 
-# GET http://localhost:9001/user/history
-# Content-Type: application/json
-# Authorization: Bearer
+###
+GET http://localhost:9001/user/history
+Content-Type: application/json
+Authorization: Bearer 
+
+
+
+###
+GET http://localhost:9001/user/updateBio
+Content-Type: application/json
+Authorization: Bearer 

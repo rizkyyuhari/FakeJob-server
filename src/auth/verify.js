@@ -17,7 +17,7 @@ module.exports = {
         })
     }
     else{
-        return res.send({
+        return res.status(403).send({
             succes : false,
             message : 'Access Denied! Unauthorized user'
         })

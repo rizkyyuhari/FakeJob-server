@@ -1,8 +1,17 @@
 const express = require("express");
-const { verifyAcc } = require("../auth/verify");
 const router = express.Router();
 const UserModel = require("../model/User.model");
 const { verifyToken } = require("../auth/verify");
+const { route } = require("express/lib/application");
+// const Multer = require('multer')
+const ImageModel = require('../model/image.model')
+
+// const multer = Multer({
+//   storage: Multer.memoryStorage(),
+//   limits: {
+//     fileSize: 5 * 1024 * 1024,
+//   },
+// });
 
 router.post("/register", (req, res) => {
   const data = {
@@ -32,13 +41,6 @@ router.post("/updateBio", verifyToken, (req, res) => {
   UserModel.updateBio(data, res);
 });
 
-router.get("/ownHistory/:id", (req, res) => {
-  const id = req.params.id;
-  UserModel.ownHistory(id, res);
-});
 
-router.get("/allHistory", (req, res) => {
-  UserModel.allHistory(res);
-});
 
 module.exports = router;

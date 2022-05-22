@@ -11,12 +11,10 @@ exports.register = async (data, res) => {
     `SELECT * FROM users WHERE LOWER(email) = ${conn.escape(data.email)}`,
     (err, result) => {
       if (result.length) {
-        return res
-          .status(409)
-          .send({
-            status: false,
-            message: "This user email is already in use!",
-          });
+        return res.status(409).send({
+          status: false,
+          message: "This user email is already in use!",
+        });
       } else {
         conn.query(
           `INSERT INTO users (name, email, password) VALUES ('${
@@ -68,7 +66,7 @@ exports.login = (data, res) => {
           const token = jwt.sign(
             { id: data.id, name: data.name, email: data.email },
             process.env.SECRET_KEY,
-            { expiresIn: 30 }
+            { expiresIn: "1d" }
           );
 
           return res.send({
@@ -90,44 +88,54 @@ exports.login = (data, res) => {
 exports.updateBio = (data, res) => {
   conn.query(
     "UPDATE users SET name = ?,ProfilePhoto = ? ,BirthDay = ? , Nation = ?, updated_at = CURRENT_TIMESTAMP  WHERE id =?",
-    [
-      data.name,
-      data.profilephoto,
-      data.birthday,
-      data.nation,
-      data.id
-    ],
+    [data.name, data.profilephoto, data.birthday, data.nation, data.id],
     (err, result) => {
       if (err) throw err;
 
       return res.send({
-        status : true,
-        message : "Update Succesfully"
+        status: true,
+        message: "Update Succesfully",
       });
     }
   );
 };
 
-exports.ownHistory = (id,res) => {
-  conn.query("SELECT * FROM result WHERE UserID = ? ORDER BY created_at DESC ", [id],(err, result) => {
-    if (err) throw err;
-    const data = {
-     status: 1,
-      datas: JSON.parse(JSON.stringify(result)),
-    };
-    return res.status(200).send(data);
-  });
-};
+// exports.ownHistory = (id, res) => {
+//   conn.query(
+//     "SELECT UserID,input,output,created_at FROM result WHERE UserID = ? ORDER BY created_at DESC ",
+//     [id],
+//     (err, result) => {
+//       if (err) throw err;
+//       const data = {
+//         status: 1,
+//         datas: JSON.parse(JSON.stringify(result)),
+//       };
+//       return res.status(200).send(data);
+//     }
+//   );
+// };
 
+// exports.allHistory = (res) => {
+//   conn.query(
+//     "SELECT UserID,input,output,created_at FROM result  ORDER BY created_at DESC ",
+//     (err, result) => {
+//       if (err) throw err;
+//       const data = {
+//         status: 1,
+//         datas: JSON.parse(JSON.stringify(result)),
+//       };
+//       return res.status(200).send(data);
+//     }
+//   );
+// };
 
-
-exports.allHistory = (res) => {
-  conn.query("SELECT * FROM result  ORDER BY created_at DESC ", (err, result) => {
-    if (err) throw err;
-    const data = {
-      status: 1,
-      datas: JSON.parse(JSON.stringify(result)),
-    };
-    return res.status(200).send(data);
-  });
-};
+// exports.insertParam = (data, res) => {
+//   conn.query(
+//     "INSERT INTO result (UserID,input) VALUES (?,?)",
+//     [data.userid, data.input],
+//     (err, result) => {
+//       if(err) throw err;
+//       return res.send({status : 1, message: 'Succesfully added Input'})
+//     }
+//   );
+// };
