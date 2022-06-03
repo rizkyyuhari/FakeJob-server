@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fake-job-project",
+  "private_key_id": "9759eecdb4f3bc0b5fe697168a3d6d267bdd50bd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7aFLqvY32XF3S\nb+bRGe+AnpxBdvsQ6+rUuxlUZBTQyRxIapKGErEycV2gW2LOwPp0YUTdzevvjKmb\nZce408V6M7jrllQU3Ojl17WhIqXIIIUX/U/AE995yMzGL9a106Ii8M4CPhxpyUVh\nraQNKwCwGNlDJMepWN47/Rgn/6bXLqsO7a+YOt2oyXRCi5LfEsguqkAQrfSSEJHZ\n9R3xEBjaKcIwrTu+wVVVoF11QLGREOnzvfUv84fg//4OgK1erLvRHHfTo9klWx7X\nXZu5pVUtJqFwF39C3lARJWi637yjohiMb0pATvdKBxmyWp0DE+FfzN5rnkQsj08c\na2tuQEfBAgMBAAECggEATkAqswpP7ui1YitISNIX/2/61ZjdDz06kfXHh0W8rUrz\n7MbXBHVkmKfeTJkr4iGQ0ixVKXoUhDMLFLBEWwfNwo87LN9Zn1Z4RpQxqiUB7NSr\nTg9+j7icjMjLvAr4j3ZdElLS6fvOOFuKhVUQFVF52Y2elhsS5UKOlKTCw9zK6LjD\n5L109NFJALKtRZ6KOmaJm9gLzOYKAgkJjPSzHmrwpR1XvYPvx56Q57uhBb8G2ILf\n+4bN81rm4y1FNUO/niN/kE4djHAqFOIsVOAhfF+vuygY262LxBLJLsaX86dfjXVm\nrBpZwK/NApu4YFP9G5OAgXfUUDgv14iwSQ8+qsnE+wKBgQDq/+etaArN67xwnHAV\nnO117UM4Bj7zBD70NQoARqzea+c/8eRokX2qUmTvfjJ+5JreedEr4e+csO5VTTFj\nKueZz23zBlJ1gATo7aiQKvkS0+1r91BlXZ0iC6HANTOr8cR7lyjbNSIkdVgIXgCJ\nfFoPNkqI9nKd/9785f/oBx65EwKBgQDMJ6cDnybrIIqkAg1KH50Bvb2lIjFPOrnC\nX2vLt7ymMn+9ZQ4M72n4/D0joA+lqtJnalAperANRv8/0B/DDbd8hRQMGweLPI5o\n7SGtyk0drq4Wd1Qd+ShDtzRBBzEPsNBLdwzRB48OTEJ7cLQ6ZrFTXyAPQ+koFCBd\nf05Sr3dKWwKBgQCWCQBvlAeh5SoQc7CT+/cX3X2XHVW/biyLWfmip3zjHN0t1FBR\n+uHShnxu85Fltqqx8/B6JewHjGb+CyTG/bOUXf0CtjybTDrWRDXkpasUPD5POj0Y\nGqah/+8rekwdMWSSy7WIDupXgJvN68ZIAR62q6D2xPH0slI6ANZb23/gBQKBgBwa\nwVUwTa1Et5FIbwfrPjQFKNxYzqz3iqcFd9N9oczHWup5xOtm8hHCt6/10vGdiIWQ\nDyUGrMHHKlBgmF7DvqS3tUDNX8Z9OaWcL2y7Us5pQ7H4D25o5HAeAmWJVemxD5uz\n8eG8xqbTPLu9kjIP/Q1bJRC06p4H10THx8J+QU/NAoGAGZucFwd2YIdPxiU7JIuA\n+Rlf+yAtEdKVEjBqX4SiQ4BJmzLPyjkNm91/pDSwR2yF3XX7r2B04kE8iixjVq6Z\nj5wA2QnRF0JUawVtrYdUC7qYEqAAFym7isc1F8Pa2E8m7a1ldYWceW2nYUZzGs++\nrlNBX5ofiFErtopZmtGUgdc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fake-job-bucket@fake-job-project.iam.gserviceaccount.com",
+  "client_id": "108802778568915165376",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fake-job-bucket%40fake-job-project.iam.gserviceaccount.com"
+}

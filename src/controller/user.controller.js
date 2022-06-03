@@ -3,15 +3,9 @@ const router = express.Router();
 const UserModel = require("../model/User.model");
 const { verifyToken } = require("../auth/verify");
 const { route } = require("express/lib/application");
-// const Multer = require('multer')
 const ImageModel = require('../model/image.model')
 
-// const multer = Multer({
-//   storage: Multer.memoryStorage(),
-//   limits: {
-//     fileSize: 5 * 1024 * 1024,
-//   },
-// });
+
 
 router.post("/register", (req, res) => {
   const data = {
@@ -30,15 +24,21 @@ router.post("/login", (req, res) => {
   UserModel.login(data, res);
 });
 
-router.post("/updateBio", verifyToken, (req, res) => {
+router.post("/bio", verifyToken, (req, res) => {
   const data = {
-    id: req.body.id,
+    userid: req.body.userid,
     name: req.body.name,
-    profilephoto: req.body.profilephoto,
     birthday: req.body.birthday,
     nation: req.body.nation,
+    phonenumber : req.body.phonenumber
   };
-  UserModel.updateBio(data, res);
+  UserModel.updateBio(data, req,res);
+});
+
+
+
+router.get("/bio", verifyToken, (req, res) => {
+  UserModel.getBio(req,res);
 });
 
 

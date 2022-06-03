@@ -5,22 +5,24 @@ const TaskModel = require('../model/Task.model')
 
 
 
-router.get("/getHistory/:id",verifyToken, (req, res) => {
-    const id = req.params.id;
-    TaskModel.ownHistory(id, res);
+router.get("/history/:userid",verifyToken, (req, res) => {
+    const userid = req.params.userid;
+    TaskModel.ownHistory(userid, res);
   });
   
-  router.get("/getHistory", verifyToken,(req, res) => {
+  router.get("/history", verifyToken,(req, res) => {
     TaskModel.allHistory(res);
   });
 
-  router.post('/', verifyToken,(req,res)=>{
+  router.post('/inputargumen', verifyToken,(req,res,)=>{
     const data = {
       userid : req.body.userid,
       input : req.body.input,
     }
-    TaskModel.insertParam(data,res);
+      TaskModel.insertParam(data,res);  
   })
+
+ 
 
 
 module.exports = router;

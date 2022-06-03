@@ -6,8 +6,8 @@ module.exports = {
         token = token.slice(7);
         verify(token, process.env.SECRET_KEY, (err, decode)=>{
             if(err){
-                res.send({
-                    succes  :false,
+                res.status(401).send({
+                    error  :1,
                     message: 'Invalid Token'
                 })
             }
@@ -18,7 +18,7 @@ module.exports = {
     }
     else{
         return res.status(403).send({
-            succes : false,
+            error : 1,
             message : 'Access Denied! Unauthorized user'
         })
     }

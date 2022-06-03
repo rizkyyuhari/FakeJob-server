@@ -2,17 +2,32 @@ const conn = require("../config/dbConnection");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { DEC8_BIN } = require("mysql/lib/protocol/constants/charsets");
+const { uploadImage } = require("./image.model");
+const express = require("express");
 
 exports.register = async (data, res) => {
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(data.password, salt);
+  if (
+    data.name === undefined ||
+    data.email === undefined ||
+    data.password === undefined ||
+    data.name === "" ||
+    data.email === "" ||
+    data.password === ""
+  ) {
+    return res.status(400).send({
+      error: 1,
+      message: "Failed Register. Please fill name, email, and password",
+    });
+  }
 
   conn.query(
     `SELECT * FROM users WHERE LOWER(email) = ${conn.escape(data.email)}`,
     (err, result) => {
       if (result.length) {
         return res.status(409).send({
-          status: false,
+          error: 1,
           message: "This user email is already in use!",
         });
       } else {
@@ -23,13 +38,13 @@ exports.register = async (data, res) => {
           (err, result) => {
             if (err) {
               console.log(err);
-              return res.status(400).send({
-                status: false,
+              return res.status(500).send({
+                error: 1,
                 message: err,
               });
             }
             return res.status(201).send({
-              status: true,
+              error: 0,
               message: "Register Succesfully",
             });
           }
@@ -50,8 +65,8 @@ exports.login = (data, res) => {
 
       if (!result.length) {
         return res.status(401).send({
-          status: false,
-          message: "Email Tidak Ditemukan",
+          error: 1,
+          message: "Email Not Found!",
         });
       }
 
@@ -62,80 +77,69 @@ exports.login = (data, res) => {
 
         if (bResult) {
           result[0].password = undefined;
-          const data = JSON.parse(JSON.stringify(result[0]));
+          const datas = JSON.parse(JSON.stringify(result[0]));
           const token = jwt.sign(
-            { id: data.id, name: data.name, email: data.email },
+            { userid: datas.id, name: datas.name, email: datas.email },
             process.env.SECRET_KEY,
             { expiresIn: "1d" }
           );
 
           return res.send({
-            status: true,
+            error: 0,
             message: "Logged In!",
+            userid: datas.UserID,
             token,
           });
         }
 
         return res.status(401).send({
-          status: false,
-          message: "password salah",
+          error: 1,
+          message: "Wrong Password!",
         });
       });
     }
   );
 };
 
-exports.updateBio = (data, res) => {
+exports.updateBio = async (data, req, res) => {
+  let imagePath = "";
+  try {
+    const myFile = req.file;
+    imagePath = await uploadImage(myFile);
+  } catch (err) {
+   
+  }
+  finally{
   conn.query(
-    "UPDATE users SET name = ?,ProfilePhoto = ? ,BirthDay = ? , Nation = ?, updated_at = CURRENT_TIMESTAMP  WHERE id =?",
-    [data.name, data.profilephoto, data.birthday, data.nation, data.id],
+    "UPDATE users SET name = ?,ProfilePhoto = ? ,BirthDay = ? , Nation = ?, PhoneNumber = ?,updated_at = CURRENT_TIMESTAMP  WHERE UserID =?",
+    [data.name, imagePath, data.birthday, data.nation, data.phonenumber,data.userid],
     (err, result) => {
-      if (err) throw err;
+      if (err) return res.status(500).send({msg : err});
 
       return res.send({
-        status: true,
+        error: 0,
         message: "Update Succesfully",
+      });
+    }
+  );}
+};
+
+exports.getBio = (req, res) => {
+  conn.query(
+    "SELECT * FROM users where UserID = ?",
+    [req.body.userid],
+    (err, result) => {
+      if (err) return res.status(500).send({ message: err });
+      const data = JSON.parse(JSON.stringify(result[0]));
+      return res.status(200).send({
+        name: data.name,
+        email : data.email,
+        profilePhoto : data.ProfilePhoto,
+        phonenumber : data.PhoneNumber,
+        birthday : data.BirthDay,
+        nation : data.Nation,
+        updated_at : data.updated_at,
       });
     }
   );
 };
-
-// exports.ownHistory = (id, res) => {
-//   conn.query(
-//     "SELECT UserID,input,output,created_at FROM result WHERE UserID = ? ORDER BY created_at DESC ",
-//     [id],
-//     (err, result) => {
-//       if (err) throw err;
-//       const data = {
-//         status: 1,
-//         datas: JSON.parse(JSON.stringify(result)),
-//       };
-//       return res.status(200).send(data);
-//     }
-//   );
-// };
-
-// exports.allHistory = (res) => {
-//   conn.query(
-//     "SELECT UserID,input,output,created_at FROM result  ORDER BY created_at DESC ",
-//     (err, result) => {
-//       if (err) throw err;
-//       const data = {
-//         status: 1,
-//         datas: JSON.parse(JSON.stringify(result)),
-//       };
-//       return res.status(200).send(data);
-//     }
-//   );
-// };
-
-// exports.insertParam = (data, res) => {
-//   conn.query(
-//     "INSERT INTO result (UserID,input) VALUES (?,?)",
-//     [data.userid, data.input],
-//     (err, result) => {
-//       if(err) throw err;
-//       return res.send({status : 1, message: 'Succesfully added Input'})
-//     }
-//   );
-// };
