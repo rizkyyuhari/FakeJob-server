@@ -1,7 +1,7 @@
 const express = require('express');
 
 const server = express();
-const port = 9001;
+const port = process.env.PORT || 8080;
 const userRouter = require('./src/controller/user.controller');
 const cors = require('cors')
 const taskRouter = require('./src/controller/task.controller')
