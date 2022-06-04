@@ -114,7 +114,7 @@ exports.updateBio = async (data, req, res) => {
     "UPDATE users SET name = ?,ProfilePhoto = ? ,BirthDay = ? , Nation = ?, PhoneNumber = ?,updated_at = CURRENT_TIMESTAMP  WHERE UserID =?",
     [data.name, imagePath, data.birthday, data.nation, data.phonenumber,data.userid],
     (err, result) => {
-      if (err) return res.status(500).send({msg : err});
+      if (err)
 
       return res.send({
         error: 0,
@@ -129,7 +129,7 @@ exports.getBio = (req, res) => {
     "SELECT * FROM users where UserID = ?",
     [req.body.userid],
     (err, result) => {
-      if (err) return res.status(500).send({ message: err });
+      if (err)
       const data = JSON.parse(JSON.stringify(result[0]));
       return res.status(200).send({
         name: data.name,
